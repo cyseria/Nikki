@@ -5,122 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>图片裁剪</title>
-    <script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
-    <script src='./js/image-clipper.js'></script>
+    <title>Nikki 衣柜编号识别</title>
+    
 </head>
 
 <body>
-    <!-- <img src="./1.png" alt="" class="png1">
-    <img src="./2.jpeg" alt="" class="png2"> -->
     <input type="file" id="filechooser" multiple/>
     <img src="" alt="" id="preview" width="300">
 
-    <script>
-        var filechooser = document.getElementById('filechooser');
-        var preview = document.getElementById('preview');
-
-        const arr = []
-
-        filechooser.onchange = function () {
-            const files = this.files;
-            let promise = Promise.resolve();
-
-
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                if (!/\/(?:jpeg|jpg|png)/i.test(file.type)) { // 只接受 jpeg, jpg, png 类型的图片
-                    return;
-                };
-                promise = promise
-                    .then(() => { // 创建 FileReader
-                        return createReader(file);
-                    })
-                    .then(url => { // 加载图片
-                        return loadImg(url)
-                    }).then(img => { // 裁剪图片
-                        clipImg(img)
-                    })
-            }
-
-        };
-
-        // 返回图片 data url
-        function createReader(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    resolve(e.target.result);
-                };
-                reader.readAsDataURL(file);
-            })
-        }
-
-        // 加载图片
-        function loadImg(url) {
-            return new Promise((resolve, reject) => {
-                var image = new Image();
-                image.onload = function () {
-                    resolve(this)
-                };
-                image.src = url;
-            })
-        }
-
-        // 裁剪分割图片
-        function clipImg(img) {
-            imageClipper(img, function () {
-                const beginX = 240, beginY = 210; // 初始化开始裁剪的坐标
-                const offsetX = 310, offsetY = 178; // x, y 偏移量 
-                let x, y; // 根据偏移计算后的裁剪坐标
-
-                for (let i = 0; i < 7; i++) {
-                    y = beginY + i * offsetY;
-                    for (let j = 0; j < 2; j++) {
-                        x = beginX + j * offsetX;
-
-                        clip(this, x, y)
-                            .then(dataurl => {
-                                recoNum(dataurl); // 图像识别
-                            })
-                    }
-                }
-            });
-        }
-
-        // 裁剪
-        function clip(clipper, x, y) {
-            let width = 70, // 被剪切图像的宽度。
-                height = 25; // 被剪切图像的高度。
-
-            return new Promise((resolve, reject) => {
-                clipper
-                    .reset()
-                    .crop(x, y, width, height)
-                    .toDataURL(dataUrl => {
-                        let myImage = new Image();
-                        myImage.src = dataUrl;
-                        document.body.appendChild(myImage);
-                        resolve(dataUrl)
-                    });
-            });
-        }
-
-        function recoNum(img) {
-            Tesseract.recognize(img, {
-                    // lang: 'chi_sim',
-                    // from_cache: true
-                })
-                // .progress(function (message) {
-                //     console.log('progress is: ', message)
-                // })
-                .then(function (result) {
-                    arr.push(result.text);
-                    console.log(result.text)
-                })
-        }
-    </script>
+    <script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
+    <script src='./lib/image-clipper.js'></script>
+    <script src='./js/index.js'></script>
 </body>
 
 </html>
