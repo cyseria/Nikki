@@ -147,7 +147,7 @@ btnResult.addEventListener('click', e => {
         resContain = res.content.querySelector(".nikki-contain");
     }
     for (let i = 0; i < textarea.length; i++) {
-        totalStr += (textarea[i].value + '\n,');
+        totalStr += (textarea[i].value + ',\n');
     }
 
     resContain.value = totalStr;
