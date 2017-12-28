@@ -35,7 +35,7 @@ function loadFile(file, idx) {
             .then(url => { // 加载图片
                 return loadImg(url)
             }).then(img => { // 裁剪图片
-                clipImg(img);
+                clipImg(img, idx);
                 Promise.all(ocrArr)
                     .then(data => {
                         console.log(`加载完第 ${idx} 张...`);
@@ -71,7 +71,7 @@ function loadImg(url) {
 }
 
 // 裁剪分割图片
-function clipImg(img) {
+function clipImg(img, idx) {
     const ele = document.createElement('div');
     imageClipper(img, function () {
         const beginX = 240,
@@ -99,7 +99,7 @@ function clipImg(img) {
                     });
             }
         }
-        imgPreview.push(ele)
+        imgPreview[idx] = ele;
     });
 }
 
