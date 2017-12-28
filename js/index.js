@@ -91,6 +91,7 @@ function clipImg(img, idx) {
                 x = beginX + j * offsetX;
                 this.reset()
                     .crop(x, y, width, height)
+                    .resize(width *2, height *2)
                     .toDataURL(dataUrl => { // 结果添加到 body
                         let myImage = new Image();
                         myImage.src = dataUrl;
@@ -107,7 +108,7 @@ function clipImg(img, idx) {
 function recoNum(img) {
     return new Promise((resolve, reject) => {
         Tesseract.recognize(img, {
-                tessedit_char_whitelist: ':/-0123456789',
+                tessedit_char_whitelist: '0123456789',
                 // lang: 'chi_sim'
             })
             // .progress(function (message) {
