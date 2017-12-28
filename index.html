@@ -6,12 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nikki 衣柜编号识别</title>
-    
+    <style>
+        textarea {
+            outline: 0;
+            width: 100%;
+            font-size: 18px;
+            line-height: 20px;
+        }
+        img {
+            margin-right: 4px;
+        }
+        #btn-result {
+            position: fixed;
+            top: 0;
+            right: 0;
+            border: 0;
+            background-color: hotpink;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
+    <button id="btn-result">生成结果</button>
+
     <input type="file" id="filechooser" multiple/>
-    <img src="" alt="" id="preview" width="300">
+    <p>识别结果修正：</p>
+
+    <template id="text">
+        <textarea name="" cols="30" rows="1" class="textarea"></textarea>
+    </template>
+    <template id="img-preview">
+        <div class="img-contain"></div>
+    </template>
+    <template id="nikki">
+        <textarea name="" class="nikki-contain" cols="30" rows="10"></textarea>
+    </template>
+
 
     <script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>
     <script src='./lib/image-clipper.js'></script>
